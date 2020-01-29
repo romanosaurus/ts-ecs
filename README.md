@@ -81,4 +81,5 @@ ecsWrapper.runSystem("Example System");
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 [Charlie JEANNEAU](https://github.com/JeSuisCharlie1)
+
 [Antoine CARLIER](https://github.com/Pywwo)
