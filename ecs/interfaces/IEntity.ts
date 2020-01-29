@@ -1,6 +1,4 @@
-import IComponent from "./IComponent";
-
-export interface IEntity {
+export default interface IEntity {
     assignComponent<T>(value: T) : void;
     getComponent<T>(TCtor: { new(...args: any[]): T }): T;
     getId() : number;
