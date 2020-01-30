@@ -10,4 +10,6 @@ export interface ISystem {
     getName() : string;
     getState() : SystemState;
     setState(newState : SystemState) : void;
+    setEvent(name: string, value: any): void;
+    clearEvent(): void;
 }

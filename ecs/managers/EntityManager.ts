@@ -1,4 +1,4 @@
-import {IEntity} from "../interfaces/IEntity";
+import IEntity from "../interfaces/IEntity";
 import AEntity from "../abstract/AEntity";
 
 export default class EntityManager {
@@ -36,7 +36,7 @@ export default class EntityManager {
     }
 
     /**
-     * Apply to each entity who possess the components in parameter, the callback function
+     * Apply to each entity who possess the comps in parameter, the callback function
      * @param componentsName array of component name
      * @param callback callback function
      */

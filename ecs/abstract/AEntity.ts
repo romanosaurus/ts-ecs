@@ -1,4 +1,4 @@
-import { IEntity } from "../interfaces/IEntity";
+import IEntity from "../interfaces/IEntity";
 import IComponent from "../interfaces/IComponent";
 
 export default class AEntity implements IEntity {

@@ -2,11 +2,11 @@ import {ISystem, SystemState} from "../interfaces/ISystem";
 
 export default class SystemManager {
     private readonly systems : Array<ISystem>;
-    private lastTime : number;
+    private lastTime;
 
     constructor() {
         this.systems = new Array<ISystem>();
-        this.lastTime = new Date().getTime();
+        this.lastTime = Date.now();
     }
 
     /**
@@ -32,11 +32,12 @@ export default class SystemManager {
      * Run the systems
      */
     run() : void {
-        let now = new Date().getTime();
-        const elapsedTime : number = this.lastTime - now;
+        let now = Date.now();
+        const elapsedTime = now - this.lastTime;
 
         this.systems.forEach((system) => {
             system.onUpdate(elapsedTime);
+            system.clearEvent();
         });
 
         this.lastTime = now;
@@ -55,5 +56,11 @@ export default class SystemManager {
 
     getSystem<T extends ISystem>(TCtor: { new(...args: any[]): T }) : T {
         return <T>this.systems.filter((elem) => TCtor.name === elem.constructor.name)[0];
+    }
+
+    setEvent(name: string, value: any) {
+        this.systems.forEach((system) => {
+            system.setEvent(name, value);
+        });
     }
 }
