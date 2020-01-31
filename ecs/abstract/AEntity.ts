@@ -51,12 +51,7 @@ export default class AEntity implements IEntity {
      * @return true if the component exist in the entity, false if not
      */
     hasComponent(componentName : string) : boolean {
-        for (let component of this.components) {
-            if (component.constructor.name === componentName) {
-                return true;
-            }
-        }
-        return false;
+        return this.components.some((elem) => elem.constructor.name === componentName);
     }
 
     /**

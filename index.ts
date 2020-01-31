@@ -2,4 +2,5 @@ import ECSWrapper from "./ecs/wrapper/ECSWrapper";
 
 const ecsWrapper : ECSWrapper = ECSWrapper.getInstance();
 
-ecsWrapper.entityManager.createEntity("Player");
+console.log(ecsWrapper.entityManager.getEntitiesByName("Player"));
+//ecsWrapper.entityManager.createEntity("Player");

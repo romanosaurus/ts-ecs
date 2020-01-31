@@ -1,14 +1,19 @@
 import {ISystem, SystemState} from "../interfaces/ISystem";
 
+interface Events {
+    name: string,
+    value: any | null
+}
+
 export default class ASystem implements ISystem {
     private readonly name : string;
     private state : SystemState;
-    public events : Object;
+    public events : Events | null;
 
     constructor(name : string) {
         this.name = name;
         this.state = SystemState.STOPPED;
-        this.events = {};
+        this.events = null;
     }
 
     onInit(): void {}
@@ -30,10 +35,10 @@ export default class ASystem implements ISystem {
     }
 
     setEvent(name: string, value: any): void {
-        this.events[name] = value;
+        this.events = null;
     }
 
     clearEvent(): void {
-        this.events = {};
+        this.events = null;
     }
 }

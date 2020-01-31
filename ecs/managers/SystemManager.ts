@@ -1,8 +1,8 @@
 import {ISystem, SystemState} from "../interfaces/ISystem";
 
 export default class SystemManager {
-    private readonly systems : Array<ISystem>;
-    private lastTime;
+    private readonly systems: Array<ISystem>;
+    private lastTime: number;
 
     constructor() {
         this.systems = new Array<ISystem>();
@@ -32,8 +32,8 @@ export default class SystemManager {
      * Run the systems
      */
     run() : void {
-        let now = Date.now();
-        const elapsedTime = now - this.lastTime;
+        let now: number = Date.now();
+        const elapsedTime: number = now - this.lastTime;
 
         this.systems.forEach((system) => {
             system.onUpdate(elapsedTime);

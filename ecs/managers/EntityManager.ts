@@ -14,7 +14,7 @@ export default class EntityManager {
      * Create a new entity
      * @param name name of the entity
      */
-    createEntity(name : string) : void {
+    create(name : string) : void {
         this.entities.push(new AEntity(this.idMax, name));
         this.idMax++;
     }
@@ -23,14 +23,26 @@ export default class EntityManager {
      * Delete an entity
      * @param name entity to be deleted
      */
-    deleteEntity(name : string) : void {
+    delete(name : string) : void {
         this.entities = this.entities.filter(obj => obj.getName() !== name);
     }
 
     /**
      * Get an entity by name
-     * @param name name of the entity
+     * @param filter
      */
+    get(filter: (entity: IEntity, index: number, array: Array<IEntity>) => boolean): Array<IEntity> {
+        return this.entities.filter(filter);
+    }
+
+    getByName(identifier: string): Array<IEntity> {
+        return this.get((entity) => entity.getName() === identifier);
+    }
+
+    getById(identifier: number): Array<IEntity> {
+        return this.get((entity) => entity.getId() === identifier);
+    }
+
     getEntity(name : string) : IEntity {
         return this.entities.filter((entity) => entity.getName() === name)[0];
     }
