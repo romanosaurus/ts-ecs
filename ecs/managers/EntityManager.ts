@@ -14,7 +14,7 @@ export default class EntityManager {
      * Create a new entity
      * @param name name of the entity
      */
-    create(name : string) : void {
+    public create(name : string) : void {
         this.entities.push(new AEntity(this.idMax, name));
         this.idMax++;
     }
@@ -23,28 +23,32 @@ export default class EntityManager {
      * Delete an entity
      * @param name entity to be deleted
      */
-    delete(name : string) : void {
+    public delete(name : string) : void {
         this.entities = this.entities.filter(obj => obj.getName() !== name);
     }
 
     /**
-     * Get an entity by name
-     * @param filter
+     * get entities
+     * @param filter filter on id or name
      */
-    get(filter: (entity: IEntity, index: number, array: Array<IEntity>) => boolean): Array<IEntity> {
+    public get(filter: (entity: IEntity, index: number, array: Array<IEntity>) => boolean): Array<IEntity> {
         return this.entities.filter(filter);
     }
 
-    getByName(identifier: string): Array<IEntity> {
+    /**
+     * Get all entities with the name in parameter
+     * @param identifier name of the entity
+     */
+    public getByName(identifier: string): Array<IEntity> {
         return this.get((entity) => entity.getName() === identifier);
     }
 
-    getById(identifier: number): Array<IEntity> {
-        return this.get((entity) => entity.getId() === identifier);
-    }
-
-    getEntity(name : string) : IEntity {
-        return this.entities.filter((entity) => entity.getName() === name)[0];
+    /**
+     * Get an entity based on his uid
+     * @param identifier uid of the entity
+     */
+    public getById(identifier: number): IEntity {
+        return this.get((entity) => entity.getId() === identifier)[0];
     }
 
     /**
@@ -52,7 +56,7 @@ export default class EntityManager {
      * @param componentsName array of component name
      * @param callback callback function
      */
-    applyToEach(componentsName : Array<string>, callback : (entity : IEntity) => void) : void {
+    public applyToEach(componentsName : Array<string>, callback : (entity : IEntity) => void) : void {
         for (let ent of this.entities) {
             if (ent.hasComponents(componentsName))
                 callback(ent);

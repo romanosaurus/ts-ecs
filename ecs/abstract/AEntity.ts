@@ -17,6 +17,8 @@ export default class AEntity implements IEntity {
      * @param value new component
      */
     assignComponent<T extends IComponent>(value: T): void {
+        if (this.hasComponent(value.constructor.name))
+            throw "Component already exists";
         this.components.push(value);
     }
 
@@ -25,7 +27,11 @@ export default class AEntity implements IEntity {
      * @param TCtor type to be get
      * @return IEntity
      */
-    getComponent<T extends IComponent>(TCtor: { new(...args: any[]): T }): T {
+    getComponent<T extends IComponent>(TCtor: { new(...args: any[]): T }): T | null {
+        const filterArray: Array<IComponent> = this.components.filter((elem) => TCtor.name === elem.constructor.name);
+
+        if (filterArray.length === 0)
+            return null;
         return <T>this.components.filter((elem) => TCtor.name === elem.constructor.name)[0];
     }
 

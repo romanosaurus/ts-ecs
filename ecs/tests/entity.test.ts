@@ -15,7 +15,6 @@ test('get entity with entities', () => {
     ecsWrapper.entityManager.create("Player");
 
     expect(ecsWrapper.entityManager.getByName("Player").length).toStrictEqual(2);
-    expect(ecsWrapper.entityManager.getById(0).length).toStrictEqual(1);
 });
 
 test('get entity and verify that the entity is good', () => {
@@ -49,4 +48,26 @@ test('has component with the component', () => {
     const playerEntity: IEntity = ecsWrapper.entityManager.getByName("Player")[0];
     playerEntity.assignComponent<Transform>(new Transform(playerEntity));
     expect(playerEntity.hasComponent("Transform")).toBe(true);
+});
+
+test('has components', () => {
+    class ComponentTest extends AComponent {
+        constructor(entity: IEntity) {
+            super(entity);
+        }
+    }
+    class Controller extends AComponent {
+        constructor(entity: IEntity) {
+            super(entity);
+        }
+    }
+
+    const ecsWrapper: ECSWrapper = ECSWrapper.getInstance();
+
+    ecsWrapper.entityManager.create("Bosetti");
+
+    const playerEntity: IEntity = ecsWrapper.entityManager.getByName("Bosetti")[0];
+    playerEntity.assignComponent<ComponentTest>(new ComponentTest(playerEntity));
+    playerEntity.assignComponent<Controller>(new Controller(playerEntity));
+    expect(playerEntity.hasComponents(["ComponentTest", "Controller"])).toBe(true);
 });

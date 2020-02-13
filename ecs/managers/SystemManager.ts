@@ -13,7 +13,7 @@ export default class SystemManager {
      * Add a new system to the system manager
      * @param system new system
      */
-    newSystem<T extends ISystem>(system: T) : void {
+    public initialize<T extends ISystem>(system: T) : void {
         this.systems.push(system);
     }
 
@@ -21,7 +21,7 @@ export default class SystemManager {
      * Start a system
      * @param name system name to start
      */
-    startSystem(name : string) : void {
+    public start(name : string) : void {
         const system : ISystem = this.systems.filter((system) => system.getName() === name)[0];
 
         system.onInit();
@@ -31,7 +31,7 @@ export default class SystemManager {
     /**
      * Run the systems
      */
-    run() : void {
+    public run() : void {
         let now: number = Date.now();
         const elapsedTime: number = now - this.lastTime;
 
@@ -47,18 +47,18 @@ export default class SystemManager {
      * Stop a system
      * @param name system name to be stopped
      */
-    stopSystem(name : string) : void {
+    public stop(name : string) : void {
         const system : ISystem = this.systems.filter((system) => system.getName() === name)[0];
 
         system.onClose();
         system.setState(SystemState.STOPPED);
     }
 
-    getSystem<T extends ISystem>(TCtor: { new(...args: any[]): T }) : T {
+    public get<T extends ISystem>(TCtor: { new(...args: any[]): T }) : T {
         return <T>this.systems.filter((elem) => TCtor.name === elem.constructor.name)[0];
     }
 
-    setEvent(name: string, value: any) {
+    public setEvent(name: string, value: any) {
         this.systems.forEach((system) => {
             system.setEvent(name, value);
         });
