@@ -47,8 +47,12 @@ export default class EntityManager {
      * Get an entity based on his uid
      * @param identifier uid of the entity
      */
-    public getById(identifier: number): IEntity {
-        return this.get((entity) => entity.getId() === identifier)[0];
+    public getById(identifier: number): IEntity | null {
+        const entities: Array<IEntity> = this.get((entity) => entity.getId() === identifier);
+
+        if (entities.length === 0)
+            return null;
+        return entities[0];
     }
 
     /**

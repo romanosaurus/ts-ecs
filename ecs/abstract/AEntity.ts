@@ -28,11 +28,11 @@ export default class AEntity implements IEntity {
      * @return IEntity
      */
     getComponent<T extends IComponent>(TCtor: { new(...args: any[]): T }): T | null {
-        const filterArray: Array<IComponent> = this.components.filter((elem) => TCtor.name === elem.constructor.name);
+        const components: Array<IComponent> = this.components.filter((elem) => TCtor.name === elem.constructor.name);
 
-        if (filterArray.length === 0)
+        if (components.length === 0)
             return null;
-        return <T>this.components.filter((elem) => TCtor.name === elem.constructor.name)[0];
+        return <T>components[0];
     }
 
     /**
