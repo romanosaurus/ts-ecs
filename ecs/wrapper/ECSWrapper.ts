@@ -1,20 +1,14 @@
 import EntityManager from "../managers/EntityManager";
 import SystemManager from "../managers/SystemManager";
 
-export default class ECSWrapper {
-    private static instance : ECSWrapper;
-    public entityManager : EntityManager;
-    public systemManager : SystemManager;
+class ECSWrapper {
+    public entities : EntityManager;
+    public systems : SystemManager;
 
-    private constructor() {
-        this.entityManager = new EntityManager();
-        this.systemManager = new SystemManager();
-    }
-
-    public static getInstance() : ECSWrapper {
-        if (!ECSWrapper.instance) {
-            ECSWrapper.instance = new ECSWrapper();
-        }
-        return ECSWrapper.instance;
+    public constructor() {
+        this.entities = new EntityManager();
+        this.systems = new SystemManager();
     }
 }
+
+export default new ECSWrapper();
